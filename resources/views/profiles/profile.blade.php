@@ -1,0 +1,23 @@
+@extends('layouts.app')
+
+@section('content')
+	<div class="container" style="margin-top: 150px;">
+		<div class="row">
+			<div class="col-lg-3" style="text-align: center; margin-bottom: 50px;">
+				<a class="btn btn-success" href="{{ route('users.edit', ['slug' => Auth::user()->slug]) }}"> Edit profile</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12" style="text-align: center; margin-bottom: 20px;">
+				<img class="profile" src="{{ asset(Auth::user()->avatar) }}" alt="">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12" style="text-align: center;">
+				<h2>{{ $user->name }}</h2>
+			</div>
+		</div>
+
+		
+	</div>
+@endsection
