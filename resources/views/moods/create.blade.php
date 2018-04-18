@@ -8,6 +8,7 @@
             <div class="flash-msg">
               @include('flash::message')
             </div>
+            
             <div class="panel panel-default">
                 <div class="panel-heading">Adding new mood</div>
 

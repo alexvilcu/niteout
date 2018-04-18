@@ -68,7 +68,10 @@ class RegisterController extends Controller
 
         $user_avatar = $request->file('avatar');
         $user_avatar_new_name = time() . $user_avatar->getClientOriginalName();
-        Image::make($user_avatar)->resize(150, 150)->save(public_path('uploads/avatars/' . $user_avatar_new_name));
+        Image::make($user_avatar)->resize(100, 100, function($constraint){
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save(public_path('uploads/avatars/' . $user_avatar_new_name));
         $avatar ='uploads/avatars/' . $user_avatar_new_name;
         
         $user = User::create([
