@@ -37,7 +37,7 @@ class SearchController extends Controller
     		}
     	}
 
-    	$locations = $locations->simplePaginate(4);
+    	$locations = $locations->simplePaginate(8);
         if ($locations->count() == 0) {
             flash()->overlay('Results not found', 'Ups!');
             return redirect()->back();

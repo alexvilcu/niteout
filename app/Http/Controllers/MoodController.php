@@ -55,10 +55,21 @@ class MoodController extends Controller
             'name' => 'required'
         ]);
 
-        Mood::create([
-            'name' => $request->name
-        ]);
-        return redirect()->back();
+
+
+        if (Mood::where('name', strtolower($request->name))->exists() ) {
+            flash('This mood already exists')->warning()->important();
+            return redirect()->back();
+        } else {
+            Mood::create([
+            'name' => strtolower($request->name) 
+             ]);
+
+            flash('Mood created successfuly');
+            return redirect()->back();
+        }
+
+        
         // dd(...$args)
     }
 

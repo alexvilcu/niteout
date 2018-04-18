@@ -51,9 +51,20 @@ class TagController extends Controller
             'name' => 'required'
         ]);
 
-        Tag::create([
-            'name' => $request->name
-        ]);
+        if (Tag::where('name', strtolower($request->name))->exists()) {
+
+            flash('This music tag already exists')->warning()->important();
+            return redirect()->back();
+        } else {
+
+            Tag::create([
+            'name' => strtolower($request->name) 
+            ]);
+            flash("'".$request->name."'" . ' music tag added.');
+            return redirect()->back();
+        }
+
+        
 
     }
 

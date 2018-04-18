@@ -5,6 +5,9 @@
 <div class="container" style="margin-top: 100px;">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+          <div class="flash-msg">
+            @include('flash::message')
+          </div>
             <div class="panel panel-default">
                 <div class="panel-heading">Adding new music tag</div>
 
@@ -25,4 +28,5 @@
         </div>
     </div>
 </div>
+  
 @endsection

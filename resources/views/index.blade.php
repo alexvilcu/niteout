@@ -12,7 +12,7 @@
         </div>
         <div class="row">
           <div class="col-lg-12">
-            <h1 class="brand-heading">Nightout</h1>
+            <h1 class="brand-heading">NiteOut</h1>
             <p class="intro-text">Your personal 'going-out' advisor</p>
           </div>
         </div>
@@ -24,8 +24,8 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <h2>About Nightout</h2>
-            <p>Nightout helps you find places that suites your mood. Do you have  a certain music preference? Search for locations where you can listen that type of music. You fell in love with a place? Share that with others by adding that location to Nightout so that they can enjoy it too.
+            <h2>About NiteOut</h2>
+            <p>NiteOut helps you find places that suites your mood. Do you have  a certain music preference? Search for locations where you can listen that type of music. You fell in love with a place? Share that with others by adding that location to NiteOut so that they can enjoy it too.
           </div>
         </div>
       </div>

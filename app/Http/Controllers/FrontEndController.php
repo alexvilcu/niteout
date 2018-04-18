@@ -16,19 +16,7 @@ use DB;
 
 class FrontEndController extends Controller
 {
-    public function map() 
-    {
-
-    	// Mapper::location('sheffield');
-    	// Mapper::map(53.381128999999990000, -1.470085000000040000);
-    	$location = Mapper::location('gabroveni 7')->map();
-    	// dd($location);
-    	// phpinfo();
-
-    	return view('cornford.map');
-
-    	
-    }
+    
 
     public function index()
     {

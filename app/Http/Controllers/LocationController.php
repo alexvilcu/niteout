@@ -61,6 +61,10 @@ class LocationController extends Controller
 
         ]);
 
+        if (Location::where('name', $request->name)->exists()) {
+            flash('Location already exists.')->warning()->important();
+            return redirect()->back();
+        } else {
         $location = new Location;
         $location->name = $request->name;
         $location->address = $request->address;
@@ -85,7 +89,13 @@ class LocationController extends Controller
         if ($request->hasFile('image')) {
             $location_image = $request->file('image');
             $location_image_new_name = time() . $location_image->getClientOriginalName();
-            Image::make($location_image)->resize(300, 300)->save(public_path('/uploads/locations/' . $location_image_new_name));        
+            $img = Image::make($location_image);
+            $img->resize(300, 300, function($constraint){
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            $img->save(public_path('/uploads/locations/' . $location_image_new_name));        
             $location->photo ='uploads/locations/' . $location_image_new_name;
             $location->save();
         } else {
@@ -96,8 +106,9 @@ class LocationController extends Controller
         
         $location_find = Location::find($location->id);
         $location_find->tags()->attach($request->music_tags);
-        
+        flash('Location created!');
         return redirect()->back();
+        }
 
     }
 

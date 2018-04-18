@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top navigation">
       <div class="container">
-        <a class="navbar-brand" href="{{ route('index') }}">Nightout</a>
+        <a class="navbar-brand" href="{{ route('index') }}">NiteOut</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon stripes"></span>
         </button>
