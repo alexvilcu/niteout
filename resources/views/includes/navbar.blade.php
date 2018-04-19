@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top navigation">
       <div class="container">
-        <a class="navbar-brand" href="{{ route('index') }}">NiteOut</a>
+        
+        <a class="navbar-brand" href="{{ route('index') }}">
+        <img src="{{ asset('img\logoblack.png') }}" alt="" style="width: 60px; height: 60px;">
+        NiteOut</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon stripes"></span>
         </button>
@@ -22,12 +25,13 @@
           @else
           <ul class="navbar-nav ml-auto">
             <a class="btn btn-default" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="avatar" style="background-image: url({{ asset(Auth::user()->avatar) }})"></div>
+            <img src="{{ asset(Auth::user()->avatar) }}" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+            {{ Auth::user()->name }}
           </a>
             <div class="dropdown show">
                 <a class="btn btn-default" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   
-                  {{ Auth::user()->name }}
+                  
                 </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{ route('logout') }}"

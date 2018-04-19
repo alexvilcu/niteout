@@ -92,6 +92,10 @@ body {
   text-decoration: none;;
 }
 
+.card-title {
+  font-family: 'Gugi', cursive;
+}
+
 .card-footer {
   background-color: black;
   border-color: #42DCA3;
@@ -103,6 +107,7 @@ body {
   background-color: black;
   color: white;
 }
+
 
 .navigation {
   background-color: black;
@@ -154,6 +159,7 @@ body {
 .location-name {
   font-size: 54px;
   padding-right: 200px;
+  font-family: 'Gugi', cursive;
 }
 
 .location-row {
@@ -179,6 +185,11 @@ body {
 
 .nav-item {
   margin-right: 10px;
+}
+
+.navbar-brand {
+  font-size: 30px;
+  font-family: 'Black Han Sans', sans-serif;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {

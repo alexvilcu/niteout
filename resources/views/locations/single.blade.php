@@ -45,14 +45,17 @@
 			<script>
 				function initMap() {
 
-				  var buc = {lat:{{ $location->lat }} , lng: {{ $location->lng }}};
+				  var loc = {lat:{{ $location->lat }} , lng: {{ $location->lng }}};
 	              var map = new google.maps.Map(document.getElementById('map'), {
 	                zoom: 14,
-	                center: buc
+	                center: loc
 	              });
-	         	
+	         	var marker = new google.maps.Marker({
+	         		position: loc,
+	         		map: map
+	         	});
 
-				}
+			}
 			</script>
 	</div>
 
@@ -64,11 +67,11 @@
 				<div class="col-lg-6">
 						<div class="panel panel-default comment-panel">
 							<div class="panel-heading">
-								<img src="{{ asset($comment->user->avatar) }}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">
+								<img src="{{ asset($comment->user->avatar) }}" alt="" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
 								<p class="comment-usert">{{ $comment->user->name }}</p>
 							</div>
 						  <div class="panel-body">
-						    {{ $comment->comment }}
+						    {{ str_limit($comment->comment, $limit = 300, $end = '...') }}
 						  </div>
 						</div>
 				</div>

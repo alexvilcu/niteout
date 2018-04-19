@@ -32,7 +32,7 @@ function initMap() {
                     }
                     
                     map.setCenter(place.geometry.location);
-                    console.log(address);
+                    
                   });
 
                 }

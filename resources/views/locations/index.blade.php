@@ -14,7 +14,7 @@
         @foreach($locations as $location)
           <div class="locations col-lg-3 col-md-6 mb-4">
             <div class="card">
-              <img class=" img-responsive card-img-top" src="{{ asset($location->photo) }}"  alt="" ">
+              <img class=" img-responsive card-img-top" src="{{ asset($location->photo) }}"  alt="" " style="width: 100%; height: 200px; object-fit: cover;">
               <div class="card-body">
                 <h4 class="card-title">{{ $location->name }}</h4>
                 <p class="card-text">{{ str_limit($location->description, $limit = 70, $end = '...')  }}</p>
