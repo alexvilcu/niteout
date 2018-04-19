@@ -6,6 +6,9 @@
 
 	<div class="container" style="margin-top: 100px; margin-bottom: 50px;">
 		<div class="row">
+			<div class="flash-msg">
+         	 	@include('flash::message')
+        	</div>
 			<div class="col-lg-3" style="margin-bottom: 30px;">
 				<a href="{{ route('comment.create',['slug' => $location->slug])}}" class="btn btn-primary find-more-btn">Add comment!</a>
 			</div>

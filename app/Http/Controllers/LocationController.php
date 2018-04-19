@@ -198,6 +198,7 @@ class LocationController extends Controller
         $user->experience = $new_exp;
         $user->save();
 
+        flash('Comment added '. ' you received ' .$exp. ' points.');
         return redirect()->route('locations.show', ['slug' => $request->location_slug]);
 
     }
