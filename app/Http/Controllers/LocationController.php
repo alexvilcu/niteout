@@ -90,7 +90,7 @@ class LocationController extends Controller
             $location_image = $request->file('image');
             $location_image_new_name = time() . $location_image->getClientOriginalName();
             $img = Image::make($location_image);
-            $img->resize(300, 300, function($constraint){
+            $img->resize(200, 200, function($constraint){
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });
@@ -188,10 +188,15 @@ class LocationController extends Controller
         ]);
 
         $comment = new Comment;
+        $user = Auth::user();
+        $exp = 100;
         $comment->comment = $request->comment;
         $comment->user_id = Auth::id();
         $comment->location_id = $request->location_id;
         $comment->save();
+        $new_exp = $user->experience + $exp;
+        $user->experience = $new_exp;
+        $user->save();
 
         return redirect()->route('locations.show', ['slug' => $request->location_slug]);
 

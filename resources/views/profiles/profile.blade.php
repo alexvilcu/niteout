@@ -9,12 +9,19 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center; margin-bottom: 20px;">
-				<img class="profile" src="{{ asset(Auth::user()->avatar) }}" alt="">
+				<img class="profile" src="{{ asset(Auth::user()->avatar) }}" alt="" style="object-fit: cover;">
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center;">
 				<h2>{{ $user->name }}</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12" style="text-align: center;">
+				<p>Locations added:{{ " " }} {{ Auth::user()->locations()->count() }}</p>
+				<p>Experience:{{ " " }} {{ Auth::user()->experience }}</p>
 			</div>
 		</div>
 
