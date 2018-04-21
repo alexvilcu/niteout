@@ -61,6 +61,9 @@ class LocationController extends Controller
 
         ]);
 
+        $user = Auth::user();
+        $location_exp = 200;
+
         if (Location::where('name', $request->name)->exists()) {
             flash('Location already exists.')->warning()->important();
             return redirect()->back();
@@ -106,6 +109,11 @@ class LocationController extends Controller
         
         $location_find = Location::find($location->id);
         $location_find->tags()->attach($request->music_tags);
+
+        $new_exp = $user->experience + $location_exp;
+        $user->experience = $new_exp;
+        $user->save();
+
         flash('Location created!');
         return redirect()->back();
         }
@@ -148,6 +156,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $location = Location::find($id);
         $location->name = $request->name;
         $location->address = $request->address;
@@ -162,6 +171,10 @@ class LocationController extends Controller
         $location_image->move('uploads/locations', $location_image_new_name);
         $location->photo ='uploads/locations/' . $location_image_new_name;
         $location->save();
+
+
+
+
     }
 
     /**
@@ -189,16 +202,16 @@ class LocationController extends Controller
 
         $comment = new Comment;
         $user = Auth::user();
-        $exp = 100;
+        $comment_exp = 100;
         $comment->comment = $request->comment;
         $comment->user_id = Auth::id();
         $comment->location_id = $request->location_id;
         $comment->save();
-        $new_exp = $user->experience + $exp;
+        $new_exp = $user->experience + $comment_exp;
         $user->experience = $new_exp;
         $user->save();
 
-        flash('Comment added '. ' you received ' .$exp. ' points.');
+        flash('Comment added. '. ' You received ' .$comment_exp. ' points!!');
         return redirect()->route('locations.show', ['slug' => $request->location_slug]);
 
     }
