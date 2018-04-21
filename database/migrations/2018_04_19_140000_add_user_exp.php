@@ -14,7 +14,7 @@ class AddUserExp extends Migration
     public function up()
     {
         Schema::table('users', function($table) {
-            $table->float('experience', 10, 6);
+            $table->float('experience', 10, 6)->default(0);
         });
     }
 

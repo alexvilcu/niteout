@@ -124,6 +124,12 @@ class UserController extends Controller
 
     }
 
+    public function view_profile($identifier)
+    {
+        $user = User::where('identifier', $identifier)->first();
+        return view('profiles.user-profile', ['user' => $user]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

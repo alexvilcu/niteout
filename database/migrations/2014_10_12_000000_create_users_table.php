@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->boolean('admin')->default(false);
             $table->string('avatar')->default('uploads/avatars/avatar.jpg');
             $table->string('name');
+            $table->string('identifier')->unique()->default(str_random(30));
             $table->string('slug')->nullable();
             $table->string('password');
             $table->rememberToken();
