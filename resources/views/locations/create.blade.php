@@ -39,16 +39,16 @@
                         <div class="form-group">
                               <textarea name="description" id="description" cols="40" rows="5" placeholder="Enter description here"></textarea>
                         </div>
-            						<div class="form-group">
-            							  <label for="sel1">Select the location type:</label>
-            							  <select name="type" class="form-control" id="sel1">
-            							  	<option value="" selected disabled hidden>Choose here</option>
-            							    <option value="bar">Bar</option>
-            							    <option value="restaurant">Restaurant</option>
-            							    <option value="club">Club</option>
-            							    <option value="lounge">Lounge</option>
-            							  </select>
-            						</div>
+                        <div class="form-group">
+                            <label for="sel1">Select the location type:</label>
+                            <select name="type" class="form-control" id="sel1">
+                              <option value="" selected disabled hidden>Choose here</option>
+                              <option value="bar">Bar</option>
+                              <option value="restaurant">Restaurant</option>
+                              <option value="club">Club</option>
+                              <option value="lounge">Lounge</option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="mood">Select a mood of the location</label>

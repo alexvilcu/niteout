@@ -136,15 +136,26 @@ class LocationController extends Controller
         return view('locations.single', ['location' => $location, 'comments' => $comments ]);
     }
 
+
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        return view('locations.edit');
+        $moods = Mood::all();
+        $tags = Tag::all();
+        $location = Location::where('slug', $slug)->first();
+        if (Auth::user() == $location->user ) {
+            return view('locations.edit', ['location' => $location, 'moods' => $moods, 'tags' => $tags]);
+        } else {
+            return redirect()->back();
+        }
+         
+        
     }
 
     /**
@@ -154,27 +165,13 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        
-        $location = Location::find($id);
-        $location->name = $request->name;
-        $location->address = $request->address;
-        $location->type = $request->type;
-        $location->description = $request->description;
-        $location->mood_id = $request->mood;
-        $location->lat = $request->lat;
-        $location->lng = $request->lng;
-        $location_image_new_name = time() . $location_image->getClientOriginalName();
-
-        $location_image = $request->image;  
-        $location_image->move('uploads/locations', $location_image_new_name);
-        $location->photo ='uploads/locations/' . $location_image_new_name;
-        $location->save();
-
-
-
-
+        $location = Location::where('slug', $slug)->first();
+        if ($request->has('name')) {
+            $location->name = $request->name;
+            $location->save();
+        }
     }
 
     /**

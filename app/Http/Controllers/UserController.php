@@ -61,6 +61,13 @@ class UserController extends Controller
 
     }
 
+    public function user_locations()
+    {
+        $user = Auth::user();
+        $locations = $user->locations()->simplePaginate(8);
+        return view('profiles.user-locations', ['locations' => $locations]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
