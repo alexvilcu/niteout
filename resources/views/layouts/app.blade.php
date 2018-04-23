@@ -27,6 +27,12 @@
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
     </script>
 
+    <script>
+      $(':radio').change(function() {
+      document.getElementById('star_rating').value = this.value;
+    });
+    </script>
+
     {{-- <script>
       $('div.alert').not('.alert-important').delay(2).fadeOut(3);
     </script> --}}

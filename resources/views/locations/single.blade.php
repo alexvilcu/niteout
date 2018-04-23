@@ -14,8 +14,51 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-12" style="margin-bottom: 30px;">
+			<div class="col-sm-6" style="margin-bottom: 30px;">
 				<p class="location-name">{{ $location->name }}</p>
+			</div>
+			<div class="col-sm-3">
+				<form class="rating">
+				  <label>
+				    <input type="radio" name="stars" value="1" />
+				    <span class="icon">★</span>
+				  </label>
+				  <label>
+				    <input type="radio" name="stars" value="2" />
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				  </label>
+				  <label>
+				    <input type="radio" name="stars" value="3" />
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>   
+				  </label>
+				  <label>
+				    <input type="radio" name="stars" value="4" />
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				  </label>
+				  <label>
+				    <input type="radio" name="stars" value="5" />
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				    <span class="icon">★</span>
+				  </label>
+				</form>
+
+			</div>
+			<div class="col-sm-3">
+				<form action="{{ route('location.rating', ['identifier' => $location->identifier]) }}" method="post">
+					<input type="number" hidden="true" value="" id="star_rating" name="rating">
+					{{ csrf_field() }}
+					<button class="btn btn-primary find-more-btn" type="submit">Rate this location</button>
+				</form>
+				
 			</div>
 		</div>
 		<div class="row">
@@ -23,7 +66,7 @@
 				{{-- <span class="fab fa-facebook-square fa-4x"></span> --}}
 				
 				<div class="location-image" style="margin-top: 20px;">
-					<img src="{{ asset($location->photo) }}" alt="" ;">
+					<img src="{{ asset($location->photo) }}" alt="" ;" style="width: 100%; height: 200px;object-fit: cover;">
 				</div>
 				<ul class="nav nav-pills">
 					<li class="nav-item">
@@ -89,5 +132,7 @@
 	 <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHoSEv07-ffKnlYnfaCxjILKOV6x-Mcfg&callback=initMap">
     </script>
+
+    
 
 @endsection

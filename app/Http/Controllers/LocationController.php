@@ -241,4 +241,14 @@ class LocationController extends Controller
         return redirect()->route('locations.show', ['slug' => $request->location_slug]);
 
     }
+
+    public function rateLocation(Request $request, $identifier)
+    {
+        $location = Location::where('identifier', $identifier);
+        dd($request->rating);
+        // $rating = new willvincent\Rateable\Rating;
+        // $rating->rating = $request->rating;
+        // // $rating->user_id = \Auth::id();
+        // // $location->ratings()->save($rating);
+    }
 }
