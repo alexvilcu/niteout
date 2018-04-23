@@ -82,6 +82,7 @@ class RegisterController extends Controller
         ]);
 
         $user->slug = str_slug(strtolower($request->name), '-');
+        $user->identifier = str_random($length = 30);
         $user->save();
         return $user;
     }

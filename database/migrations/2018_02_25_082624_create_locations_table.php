@@ -20,6 +20,7 @@ class CreateLocationsTable extends Migration
             $table->string('photo')->default('default.jpg');
             $table->string('address');
             $table->integer('mood_id');
+            $table->string('identifier')->unique()->default(str_random(30));
             $table->integer('user_id');
             $table->string('type');
             $table->float('lat', 10, 6);

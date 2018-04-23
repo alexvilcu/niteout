@@ -6,6 +6,13 @@
 	<form method="POST" action="{{ route('users.update', ['slug' => Auth::user()->slug]) }}" enctype="multipart/form-data">
 	@csrf
 		<input name="_method" value="PUT" type="hidden">
+		<div class="row">	
+			<div class="col-lg-4">
+				<div class="flash-msg">
+	          		@include('flash::message')
+	        	</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center; margin-bottom: 20px;">
 				<h2>{{ $user->name }}</h2>
@@ -18,7 +25,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center; margin-bottom: 20px;">
-				<input type="text" placeholder="Enter your name" name="name">
+				<input type="text" placeholder="Enter your name" name="name" value="{{ $user->name }}">
 			</div>
 		</div>
 
@@ -31,7 +38,7 @@
 
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center; margin-bottom: 20px;">
-				<input type="text" placeholder="Enter your email" name="email">
+				<input type="text" placeholder="Enter your email" name="email" value="{{ $user->email }}">
 			</div>
 			
 		</div>

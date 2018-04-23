@@ -21,7 +21,7 @@
               </div>
               <div class="card-footer">
                 
-                <a href="{{ route('locations.edit', ['slug' => $location->slug]) }}" class="btn btn-primary find-more-btn">Edit the location!</a>
+                <a href="{{ route('locations.edit', ['identifier' => $location->identifier]) }}" class="btn btn-primary find-more-btn">Edit the location!</a>
               </div>
             </div>
           </div>

@@ -106,10 +106,10 @@ class LocationController extends Controller
             return redirect()->back();
         }
 
-        
+        $location->identifier = str_random(30);
         $location_find = Location::find($location->id);
         $location_find->tags()->attach($request->music_tags);
-
+        $location->save();
         $new_exp = $user->experience + $location_exp;
         $user->experience = $new_exp;
         $user->save();
@@ -144,12 +144,12 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit($identifier)
     {
         $moods = Mood::all();
         $tags = Tag::all();
-        $location = Location::where('slug', $slug)->first();
-        if (Auth::user() == $location->user ) {
+        $location = Location::where('identifier', $identifier)->first();
+        if (Auth::user()->id == $location->user->id ) {
             return view('locations.edit', ['location' => $location, 'moods' => $moods, 'tags' => $tags]);
         } else {
             return redirect()->back();
@@ -168,10 +168,39 @@ class LocationController extends Controller
     public function update(Request $request, $slug)
     {
         $location = Location::where('slug', $slug)->first();
-        if ($request->has('name')) {
-            $location->name = $request->name;
+        $location->name = $request->name;
+        $location->slug = str_slug(strtolower($request->name), '-');
+        $location->address = $request->address;
+        $location->description = $request->description;
+        $location->type = $request->type;
+        $location->mood_id = $request->mood;
+        $location->lng = $request->lng;
+        $location->lat = $request->lat;
+        $location->save();
+        if ($request->hasFile('image')) {
+            $location_image = $request->file('image');
+            $location_image_new_name = time() . $location_image->getClientOriginalName();
+            $img = Image::make($location_image);
+            $img->resize(200, 200, function($constraint){
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            $img->save(public_path('/uploads/locations/' . $location_image_new_name));        
+            $location->photo ='uploads/locations/' . $location_image_new_name;
             $location->save();
         }
+
+        if ($request->has('music_tags')) {
+            $location->tags()->sync($request->music_tags);
+        } else {
+            $location->tags()->sync($location->tags);
+        }
+
+        
+        $location->save();
+        flash('Location edited');
+        return redirect()->back();
     }
 
     /**
