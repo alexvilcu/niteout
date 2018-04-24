@@ -151,6 +151,7 @@ return [
         Cornford\Googlmapper\MapperServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -163,6 +164,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        willvincent\Rateable\RateableServiceProvider::class
 
     ],
 

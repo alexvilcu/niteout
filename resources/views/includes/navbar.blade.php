@@ -41,6 +41,7 @@
                     </a>
                     <a class="dropdown-item" href="{{ route('locations.create') }}">Add new location</a>
                     <a class="dropdown-item" href="{{ route('users.show', ['slug' => Auth::user()->slug]) }}">Profile</a>
+                    <a class="dropdown-item" href="{{ route('user.locations') }}">View your locations</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                           @csrf
                     </form>

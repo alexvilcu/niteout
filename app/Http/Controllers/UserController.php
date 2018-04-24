@@ -61,6 +61,13 @@ class UserController extends Controller
 
     }
 
+    public function user_locations()
+    {
+        $user = Auth::user();
+        $locations = $user->locations()->simplePaginate(8);
+        return view('profiles.user-locations', ['locations' => $locations]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -90,6 +97,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        $this->validate($request, [
+            'email' => 'required|email'
+        ]);
 
         if (Auth::user()->slug == $slug) {
                 $user = User::where([
@@ -97,14 +107,19 @@ class UserController extends Controller
                 ['id', Auth::user()->id]
             ])->first();
             
-            if (!$request->has('name')) {
-                $request->except('name');
-            } else {
+            if ($request->has('name')) {
                 $user->name = $request->name;
+                $user->slug = str_slug(strtolower($request->name), '-');
+            } else {
+                flash('Please insert your name');
+                return redirect()->back();
             }
 
             if ($request->has('email')) {
-                $request->email;
+                $user->email = $request->email;
+            } else {
+                flash('Please insert email');
+                return redirect()->back();
             }
   
             if ($request->hasFile('avatar')) {
@@ -114,9 +129,9 @@ class UserController extends Controller
                 $avatar ='uploads/avatars/' . $user_avatar_new_name;
                 $user->avatar = $avatar;
                 $user->save();
-            } 
-
+            }
                 $user->save();
+                flash('Profile updated.');
                 return redirect()->back();
             
             

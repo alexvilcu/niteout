@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center;">
 				<p>Locations added:{{ " " }} {{ $user->locations()->count() }}</p>
-				<p>Experience:{{ " " }} {{ $user->experience }}</p>
+				<p>Nite points:{{ " " }} {{ $user->experience }}</p>
 			</div>
 		</div>
 

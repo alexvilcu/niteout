@@ -20,8 +20,7 @@ class FrontEndController extends Controller
 
     public function index()
     {
-    	return view('index')->with('locations', Location::all() )
-                            ->with('tags', Tag::all())
+    	return view('index')->with('tags', Tag::all())
                             ->with('moods', Mood::all());
     }
 }

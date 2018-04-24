@@ -10,6 +10,8 @@ use Mapper;
 
 use Auth;
 
+use DB;
+
 use App\Comment;
 
 use App\Location;
@@ -17,6 +19,8 @@ use App\Location;
 use App\Tag;
 
 use Image;
+
+use willvincent\Rateable\Rating;
 
 class LocationController extends Controller
 {
@@ -61,6 +65,9 @@ class LocationController extends Controller
 
         ]);
 
+        $user = Auth::user();
+        $location_exp = 200;
+
         if (Location::where('name', $request->name)->exists()) {
             flash('Location already exists.')->warning()->important();
             return redirect()->back();
@@ -103,9 +110,14 @@ class LocationController extends Controller
             return redirect()->back();
         }
 
-        
+        $location->identifier = str_random(30);
         $location_find = Location::find($location->id);
         $location_find->tags()->attach($request->music_tags);
+        $location->save();
+        $new_exp = $user->experience + $location_exp;
+        $user->experience = $new_exp;
+        $user->save();
+
         flash('Location created!');
         return redirect()->back();
         }
@@ -122,11 +134,15 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
+        $rating_user = Rating::where('user_id', Auth::user()->id)->first(); 
+
         $location = Location::where('slug', $slug)->first();
         $comments = $location->comments()->simplePaginate(4);
         $map_location = Mapper::location($location->address)->map(['zoom' => 15, 'center' => true]);
-        return view('locations.single', ['location' => $location, 'comments' => $comments ]);
+        return view('locations.single', ['location' => $location, 'comments' => $comments, 'rating_user' => $rating_user ]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -134,9 +150,18 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($identifier)
     {
-        return view('locations.edit');
+        $moods = Mood::all();
+        $tags = Tag::all();
+        $location = Location::where('identifier', $identifier)->first();
+        if (Auth::user()->id == $location->user->id ) {
+            return view('locations.edit', ['location' => $location, 'moods' => $moods, 'tags' => $tags]);
+        } else {
+            return redirect()->back();
+        }
+         
+        
     }
 
     /**
@@ -146,22 +171,42 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $location = Location::find($id);
+        $location = Location::where('slug', $slug)->first();
         $location->name = $request->name;
+        $location->slug = str_slug(strtolower($request->name), '-');
         $location->address = $request->address;
-        $location->type = $request->type;
         $location->description = $request->description;
+        $location->type = $request->type;
         $location->mood_id = $request->mood;
-        $location->lat = $request->lat;
         $location->lng = $request->lng;
-        $location_image_new_name = time() . $location_image->getClientOriginalName();
-
-        $location_image = $request->image;  
-        $location_image->move('uploads/locations', $location_image_new_name);
-        $location->photo ='uploads/locations/' . $location_image_new_name;
+        $location->lat = $request->lat;
         $location->save();
+        if ($request->hasFile('image')) {
+            $location_image = $request->file('image');
+            $location_image_new_name = time() . $location_image->getClientOriginalName();
+            $img = Image::make($location_image);
+            $img->resize(200, 200, function($constraint){
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            $img->save(public_path('/uploads/locations/' . $location_image_new_name));        
+            $location->photo ='uploads/locations/' . $location_image_new_name;
+            $location->save();
+        }
+
+        if ($request->has('music_tags')) {
+            $location->tags()->sync($request->music_tags);
+        } else {
+            $location->tags()->sync($location->tags);
+        }
+
+        
+        $location->save();
+        flash('Location edited');
+        return redirect()->back();
     }
 
     /**
@@ -189,17 +234,30 @@ class LocationController extends Controller
 
         $comment = new Comment;
         $user = Auth::user();
-        $exp = 100;
+        $comment_exp = 100;
         $comment->comment = $request->comment;
         $comment->user_id = Auth::id();
         $comment->location_id = $request->location_id;
         $comment->save();
-        $new_exp = $user->experience + $exp;
+        $new_exp = $user->experience + $comment_exp;
         $user->experience = $new_exp;
         $user->save();
 
-        flash('Comment added '. ' you received ' .$exp. ' points.');
+        flash('Comment added. '. ' You received ' .$comment_exp. ' points!!');
         return redirect()->route('locations.show', ['slug' => $request->location_slug]);
 
+    }
+
+    public function rateLocation(Request $request, $identifier)
+    {
+        $location = Location::where('identifier', $identifier)->first();
+        // var_dump($location->name);
+        $rating = new Rating;
+        $rating->rating = $request->rating;
+        $rating->user_id = \Auth::id();
+        $location->ratings()->save($rating);
+        // dd($location->ratings);
+        flash('You gave a ' .  $request->rating . ' star rating to this location.');
+        return redirect()->back();
     }
 }
