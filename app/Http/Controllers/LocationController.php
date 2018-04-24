@@ -10,6 +10,8 @@ use Mapper;
 
 use Auth;
 
+use DB;
+
 use App\Comment;
 
 use App\Location;
@@ -17,6 +19,8 @@ use App\Location;
 use App\Tag;
 
 use Image;
+
+use willvincent\Rateable\Rating;
 
 class LocationController extends Controller
 {
@@ -130,10 +134,12 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
+        $rating_user = Rating::where('user_id', Auth::user()->id)->first(); 
+
         $location = Location::where('slug', $slug)->first();
         $comments = $location->comments()->simplePaginate(4);
         $map_location = Mapper::location($location->address)->map(['zoom' => 15, 'center' => true]);
-        return view('locations.single', ['location' => $location, 'comments' => $comments ]);
+        return view('locations.single', ['location' => $location, 'comments' => $comments, 'rating_user' => $rating_user ]);
     }
 
 
@@ -244,11 +250,14 @@ class LocationController extends Controller
 
     public function rateLocation(Request $request, $identifier)
     {
-        $location = Location::where('identifier', $identifier);
-        dd($request->rating);
-        // $rating = new willvincent\Rateable\Rating;
-        // $rating->rating = $request->rating;
-        // // $rating->user_id = \Auth::id();
-        // // $location->ratings()->save($rating);
+        $location = Location::where('identifier', $identifier)->first();
+        // var_dump($location->name);
+        $rating = new Rating;
+        $rating->rating = $request->rating;
+        $rating->user_id = \Auth::id();
+        $location->ratings()->save($rating);
+        // dd($location->ratings);
+        flash('You gave a ' .  $request->rating . ' star rating to this location.');
+        return redirect()->back();
     }
 }
