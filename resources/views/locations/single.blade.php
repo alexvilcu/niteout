@@ -23,8 +23,8 @@
 			<div class="col-sm-6" style="margin-bottom: 30px;">
 				<p class="location-name">{{ $location->name }}</p>
 			</div>
-			<div class="col-sm-3">
-				{{-- @if($rating_user == null) --}}
+			@if($rating_user == null || $rating_user->created_at > $rating_expiration )
+			<div class="col-sm-3">			
 					<form class="rating">
 					  <label>
 					    <input type="radio" name="stars" value="1" />
@@ -57,12 +57,8 @@
 					    <span class="icon">★</span>
 					  </label>
 					</form>
-				{{-- @else --}}
-					<h4>You rated this location with {{ $location->userSumRating() }} stars.</h4>
-				{{-- @endif --}}
 
 			</div>
-			{{-- @if($rating_user == null) --}}
 			<div class="col-sm-3">
 				<form action="{{ route('location.rating', ['identifier' => $location->identifier]) }}" method="post">
 					<input type="number" hidden="true" value="" id="star_rating" name="rating">
@@ -70,7 +66,13 @@
 					<button class="btn btn-primary find-more-btn" type="submit">Rate this location</button>
 				</form>
 			</div>
-			{{-- @endif --}}
+			@else
+	
+					<div class="col-sm 6">
+						<h4>You already rated this location with {{ $location->userSumRating() }} stars this month.</h4>
+					</div>
+	
+			@endif
 		</div>
 		<div class="row">
 			<div class="col-lg-4 location-row">
@@ -130,7 +132,7 @@
 								<p class="comment-usert">{{ $comment->user->name }}</p>
 							</div>
 						  <div class="panel-body">
-						    {{ str_limit($comment->comment, $limit = 300, $end = '...') }}
+						    {{ $comment->comment }}
 						  </div>
 						</div>
 				</div>
