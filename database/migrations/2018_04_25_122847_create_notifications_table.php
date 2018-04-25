@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationTagTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateLocationTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_tag', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('location_id');
-            $table->integer('tag_id');
-            $table->integer('attendings')->default(0);
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateLocationTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('location_tag');
+        Schema::dropIfExists('notifications');
     }
 }
