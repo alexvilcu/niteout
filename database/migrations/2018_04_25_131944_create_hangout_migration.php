@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationTagTable extends Migration
+class CreateHangoutMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateLocationTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_tag', function (Blueprint $table) {
+        Schema::create('hangouts', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('inviter_id');
             $table->integer('location_id');
-            $table->integer('tag_id');
             $table->integer('attendings')->default(0);
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateLocationTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('location_tag');
+        //
     }
 }

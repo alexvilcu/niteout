@@ -6,6 +6,7 @@
 			<div class="col-lg-3" style="text-align: center; margin-bottom: 50px;">
 				<a class="btn btn-success" href="{{ route('users.edit', ['slug' => Auth::user()->slug]) }}"> Edit profile</a>
 			</div>
+
 		</div>
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center; margin-bottom: 20px;">
@@ -25,6 +26,11 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-lg-12" style="text-align: center; margin-bottom: 50px;">
+				<a class="btn btn-success" href="{{ route('hangout.create') }}" style="width: 130px;">Start a hangout</a>
+			</div>
+		</div>
 		
 	</div>
 @endsection

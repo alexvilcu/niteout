@@ -65,5 +65,20 @@
           </div>       
         </form>
       </div>
+      <div class="slideshow">
+        <h4>Top-rated Nite Owls</h4>
+          <div class="row slideshow-row">
+            <div class="col-sm-12" id="slideshow">
+              @foreach($top_rated_users as $top_rated_user)
+              <div class="top-rated">
+                <img src="{{ $top_rated_user->avatar }}" alt="" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
+                <div class="top-rated-name">
+                  <h6>{{ $top_rated_user->name }}</h6>
+                </div>
+              </div>
+              @endforeach
+            </div>
+          </div>
+      </div>
     </section>
 @endsection

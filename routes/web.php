@@ -27,7 +27,8 @@ Route::resources([
 	'locations'  => 'LocationController',
 	'moods' => 'MoodController',
 	'tags' => 'TagController',
-	'comments' => 'CommentController'
+	'comments' => 'CommentController',
+	'hangout' => 'HangoutController'
 
 ]);
 

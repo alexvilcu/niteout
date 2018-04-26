@@ -18,6 +18,8 @@ use App\Location;
 
 use App\Tag;
 
+use Carbon;
+
 use Image;
 
 use willvincent\Rateable\Rating;
@@ -134,12 +136,13 @@ class LocationController extends Controller
      */
     public function show($slug)
     {
-        $rating_user = Rating::where('user_id', Auth::user()->id)->first(); 
-
+        $current = Carbon::now();
+        $rating_expiration = $current->addDays(30);
+        $rating_user = Rating::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->first(); 
         $location = Location::where('slug', $slug)->first();
         $comments = $location->comments()->simplePaginate(4);
         $map_location = Mapper::location($location->address)->map(['zoom' => 15, 'center' => true]);
-        return view('locations.single', ['location' => $location, 'comments' => $comments, 'rating_user' => $rating_user ]);
+        return view('locations.single', ['location' => $location, 'comments' => $comments, 'rating_user' => $rating_user, 'rating_expiration' => $rating_expiration ]);
     }
 
 

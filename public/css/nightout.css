@@ -184,6 +184,30 @@ body {
 
 /*//////////////////////////////////////////////////////////////*/
 
+.slideshow-row {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.slideshow {
+  margin-top: 50px;
+}
+
+.top-rated-name {
+  margin-top: 10px;
+}
+#slideshow {
+  position: relative;
+  margin: auto;
+}
+
+#slideshow > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+
+}
+
 /*.location-image {
   width: 150px;
     height: 150px;

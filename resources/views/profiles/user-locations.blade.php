@@ -9,6 +9,7 @@
     <!-- Page Content -->
     <div class="container locations" style="margin-bottom:150px; margin-top: 10px; ">
 
+      @if($locations->count() > 0)
       <div class="row text-center">
 
         @foreach($locations as $location)
@@ -30,6 +31,21 @@
       <!-- /.row -->
 
     </div>
+      @else
+        <div class="container" style="margin-bottom: 600px; margin-top: 200px;">
+          <div class="row">
+            <div class="col-sm-6">
+              <h2>No locations found!</h2>
+            </div>
+            <div class="col-sm-6">
+              <a href="{{ route('locations.create') }}" class="btn btn-success">
+                <h6>Create new location</h6>
+              </a>
+            </div>
+          </div>
+        </div>
+      @endif
+
     <!-- /.container -->
     <div class="container pag">
         {{ $locations->appends(request()->except('page'))->links() }}

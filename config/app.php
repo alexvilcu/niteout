@@ -216,6 +216,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Mapper'         => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'Carbon' => 'Carbon\Carbon'
 
     ],
 

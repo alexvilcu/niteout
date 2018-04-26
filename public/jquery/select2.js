@@ -16,4 +16,8 @@
               placeholder: "Please select location's mood",
               tags: false
             });
+            $('#users').select2({
+              placeholder: "Invite people o your hangout",
+              tags: false
+            });
        });
