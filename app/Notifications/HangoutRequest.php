@@ -5,20 +5,23 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use \App\Hangout;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class HangoutRequest extends Notification
 {
     use Queueable;
 
+    private $hangout;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Hangout $hangout)
     {
-        //
+        $this->hangout = $hangout;
     }
 
     /**
@@ -29,7 +32,7 @@ class HangoutRequest extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -38,12 +41,14 @@ class HangoutRequest extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toDatabase()
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return [
+            'id' => $this->hangout->id,
+            'title' => $this->hangout->name,
+            'inviter' => $this->hangout->inviter_id,
+            'date' => $this->hangout->created_at
+        ];
     }
 
     /**

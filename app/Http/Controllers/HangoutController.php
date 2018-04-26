@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Hangout;
 use Illuminate\Http\Request;
+use App\User;
+use Notification;
 
 class HangoutController extends Controller
 {
@@ -24,7 +26,7 @@ class HangoutController extends Controller
      */
     public function create()
     {
-        //
+        return view('hangouts.create', ['users' => User::all()]);
     }
 
     /**
@@ -81,5 +83,10 @@ class HangoutController extends Controller
     public function destroy(Hangout $hangout)
     {
         //
+    }
+
+    public function invite(Request $request, $users)
+    {
+        $users = $request->user_tags;
     }
 }
