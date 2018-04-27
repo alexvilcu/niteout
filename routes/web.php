@@ -19,6 +19,7 @@ Route::get('/user-profile/{identifier}', 'UserController@view_profile')->name('v
 Route::get('/user-locations', 'UserController@user_locations')->name('user.locations');
 Route::post('/location/rate/{identifier}', 'LocationController@rateLocation')->name('location.rating');
 Route::post('/hangout/invite', 'HangoutController@invite')->name('hangout.invite');
+Route::get('/notifications', 'UserController@view_notifications')->name('notifications.view');
 
 
 

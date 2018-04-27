@@ -52,7 +52,7 @@ class HangoutRequest extends Notification
         return [
             'id' => $this->hangout->id,
             'title' => $this->hangout->name,
-            'inviter' => $this->$user_name,
+            'inviter' => $user_name,
             'location' => $location_name,
             'date' => $this->hangout->created_at
         ];
