@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="container" style="margin-top: 200px; margin-bottom: 300px;">
+<div class="container" style="margin-top: 100px; margin-bottom: 300px;">
 	<div class="row" style="margin-bottom: 40px;">
 		<div class="col-lg-6">
+			<h2>Create an awesome hangout</h2>
 			<div class="flash-msg">
 	          @include('flash::message')
 	        </div>
@@ -41,7 +42,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<button class="btn btn-success" type="submit">Send invitaion</button>
+					<button class="btn btn-success" type="submit">Send invitation</button>
 				</div>
 			</div>
 		</form>

@@ -29,7 +29,7 @@ class HangoutController extends Controller
      */
     public function create()
     {
-        return view('hangouts.create', ['users' => User::all(), 'locations' => Location::all()]);
+        return view('hangouts.create', ['users' => User::all()->except(Auth::id()), 'locations' => Location::all()]);
     }
 
     /**

@@ -17,7 +17,7 @@
               tags: false
             });
             $('#users').select2({
-              placeholder: "Invite people o your hangout",
+              placeholder: "Search for people",
               tags: false
             });
             $('#location').select2({
