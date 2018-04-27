@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Hangout;
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
+use App\Location;
+use HangoutRequest;
 use Notification;
 
 class HangoutController extends Controller
@@ -26,7 +29,7 @@ class HangoutController extends Controller
      */
     public function create()
     {
-        return view('hangouts.create', ['users' => User::all()]);
+        return view('hangouts.create', ['users' => User::all(), 'locations' => Location::all()]);
     }
 
     /**
@@ -85,8 +88,23 @@ class HangoutController extends Controller
         //
     }
 
-    public function invite(Request $request, $users)
+    public function invite(Request $request)
     {
-        $users = $request->user_tags;
+        $users_ids = $request->user_tags;
+        $users = User::find($users_ids);
+        // dd($users);
+        $hangout = new Hangout;
+        $hangout->name = $request->name;
+        $hangout->inviter_id = Auth::user()->id;
+        $hangout->location_id= $request->location;
+        $hangout->save();
+        $hangout = Hangout::find($hangout->id);
+        // dd($hangout_find);
+        $hangout->users()->attach($request->user_tags);
+        $hangout->save();
+        Notification::send($users, new HangoutRequest($hangout));
+        flash('Invites have been sent');
+        return redirect()->back();
+
     }
 }

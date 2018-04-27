@@ -47,6 +47,7 @@ class HangoutRequest extends Notification
             'id' => $this->hangout->id,
             'title' => $this->hangout->name,
             'inviter' => $this->hangout->inviter_id,
+            'location' => $this->hangout->location_id,
             'date' => $this->hangout->created_at
         ];
     }

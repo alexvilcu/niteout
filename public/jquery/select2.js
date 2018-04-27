@@ -20,4 +20,8 @@
               placeholder: "Invite people o your hangout",
               tags: false
             });
+            $('#location').select2({
+              placeholder: "Search for the location here",
+              tags: false
+            });
        });

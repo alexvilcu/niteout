@@ -18,6 +18,7 @@ Route::post('/comments/store', 'LocationController@store_comment')->name('commen
 Route::get('/user-profile/{identifier}', 'UserController@view_profile')->name('view.profile');
 Route::get('/user-locations', 'UserController@user_locations')->name('user.locations');
 Route::post('/location/rate/{identifier}', 'LocationController@rateLocation')->name('location.rating');
+Route::post('/hangout/invite', 'HangoutController@invite')->name('hangout.invite');
 
 
 
