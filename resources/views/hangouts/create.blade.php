@@ -40,6 +40,12 @@
 					</select>
 				</div>
 			</div>
+			<div class="row" style="margin-bottom: 40px;">
+				<div class="form-row">
+					<label for="name">Enter a name for this hangout</label>
+					<input type="datetime-local" name="meeting_at" placeholder="Enter the meeting time" class="form-control">
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-lg-12">
 					<button class="btn btn-success" type="submit">Send invitation</button>

@@ -47,6 +47,7 @@ class HangoutRequest extends Notification
     {
         $location = Location::find($this->hangout->location_id);
         $location_name = $location->name;
+        $location_slug = $location->slug;
         $user = User::find($this->hangout->inviter_id);
         $user_name = $user->name;
         return [
@@ -54,7 +55,9 @@ class HangoutRequest extends Notification
             'title' => $this->hangout->name,
             'inviter' => $user_name,
             'location' => $location_name,
-            'date' => $this->hangout->created_at
+            'date' => $this->hangout->created_at,
+            'meeting' => $this->hangout->meeting_at,
+            'location_slug' => $location_slug
         ];
     }
 

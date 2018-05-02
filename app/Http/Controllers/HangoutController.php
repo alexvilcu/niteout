@@ -95,11 +95,12 @@ class HangoutController extends Controller
         // dd($users);
         $hangout = new Hangout;
         $hangout->name = $request->name;
+        $hangout->meeting_at = $request->meeting_at;
         $hangout->inviter_id = Auth::user()->id;
         $hangout->location_id= $request->location;
         $hangout->save();
         $hangout = Hangout::find($hangout->id);
-        // dd($hangout_find);
+        // dd($request->meeting_at);
         $hangout->users()->attach($request->user_tags);
         $hangout->save();
         Notification::send($users, new HangoutRequest($hangout));
