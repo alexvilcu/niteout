@@ -270,11 +270,21 @@ body {
   vertical-align: top;
 }
 
-.panel-body {
+.panel-body .comment-panel {
   border-left: 2px solid;
   border-color: #42DCA3;
   padding-left: 10px;
 
+}
+
+.panel-body > a {
+  text-decoration: none;
+  color:#42DCA3;
+  font-size: 20px;
+}
+
+.panel-body > a:hover {
+  border-bottom: 1px solid #42DCA3;
 }
 
 .comment-panel {

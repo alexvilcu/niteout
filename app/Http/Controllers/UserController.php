@@ -145,6 +145,12 @@ class UserController extends Controller
         return view('profiles.user-profile', ['user' => $user]);
     }
 
+    public function view_notifications()
+    {
+        $user = Auth::user();
+        return view('notifications.index', ['user' => $user]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

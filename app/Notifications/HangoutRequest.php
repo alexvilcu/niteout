@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use \App\Hangout;
+use \App\User;
+use \App\Location;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class HangoutRequest extends Notification
@@ -43,11 +45,19 @@ class HangoutRequest extends Notification
      */
     public function toDatabase()
     {
+        $location = Location::find($this->hangout->location_id);
+        $location_name = $location->name;
+        $location_slug = $location->slug;
+        $user = User::find($this->hangout->inviter_id);
+        $user_name = $user->name;
         return [
             'id' => $this->hangout->id,
             'title' => $this->hangout->name,
-            'inviter' => $this->hangout->inviter_id,
-            'date' => $this->hangout->created_at
+            'inviter' => $user_name,
+            'location' => $location_name,
+            'date' => $this->hangout->created_at,
+            'meeting' => $this->hangout->meeting_at,
+            'location_slug' => $location_slug
         ];
     }
 
