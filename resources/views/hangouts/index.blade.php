@@ -6,20 +6,15 @@
 				@include('flash::message')
 			</div>
 		</div>
-		@foreach($user->unreadNotifications as $notification)
-			
+		@foreach($user->notifications as $notification)
+			<form action="{{ route('hangout.accept', ['id' => $notification->data['id']]) }}" method="post">
+				@csrf
 			<div class="row">
-				<div class="col-lg-6">
-				<form action="{{ route('notification.mark', ['id' => $notification->id]) }}" method="GET">
-					@csrf
-					<button class="btn btn-danger btn-sm" type="submit">Mark as read</button>
-				</form>			
+				<div class="col-lg-6">			
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h5>{{ $notification->data['title'] }}</h5>		
+							<h5>{{ $notification->data['title'] }}</h5>
 						</div>
-						<form action="{{ route('hangout.accept', ['id' => $notification->data['id']]) }}" method="post">
-						@csrf
 						<div class="panel-body notifications">
 							{{ $notification->data['inviter'] }} wants to hang out with you at <a href="{{ route('locations.show', ['slug' => $notification->data['location_slug']]) }}">{{ $notification->data['location'] }}</a> on {{Carbon::parse($notification->data['meeting'])->format('d M') }} . <br>
 							Meet up hour: {{Carbon::parse($notification->data['meeting'])->format('H:i') }} <br>
@@ -28,14 +23,13 @@
 								<button class="btn btn-success" disabled="true">Invitation accepted</button>		
 							</div>
 							@else
-								<button class="btn btn-success" style="margin-top: 20px; type="submit">Accept invitation</button>
+								<button class="btn btn-success" type="submit">Accept invitation</button>
 							@endif
 						</div>
-						</form>
 					</div>
 				</div>
 			</div>
-					
+			</form>		
 		@endforeach
 	</div>	
 @endsection
