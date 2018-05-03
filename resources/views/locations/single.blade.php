@@ -91,6 +91,7 @@
 				</ul>
 			</div>
 			<div class="col-lg-8 description-grid" style="margin-top: 20px;">
+				Description:
 				<p>{{ $location->description }}</p>
 			</div>
 		</div>

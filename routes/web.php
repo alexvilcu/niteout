@@ -21,7 +21,7 @@ Route::post('/location/rate/{identifier}', 'LocationController@rate_location')->
 Route::post('/hangout/invite', 'HangoutController@invite')->name('hangout.invite');
 Route::get('/notifications', 'NotificationController@view_notifications')->name('notifications.view');
 Route::post('/hangout/accept/{id}', 'HangoutController@accept_hangout_invite')->name('hangout.accept');
-Route::get('/notification/{id}', 'NotificationController@mark_as_read')->name('notification.mark');
+Route::get('/notification/{id}', 'NotificationController@delete')->name('notification.mark');
 
 
 

@@ -17,7 +17,7 @@ class NotificationController extends Controller
 
     }
 
-    public function mark_as_read($id)
+    public function delete($id)
     {
     	$user = Auth::user();
     	$notification = $user->notifications()->where('id', $id)->first();
