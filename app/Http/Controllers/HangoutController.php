@@ -19,7 +19,8 @@ class HangoutController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        return view('hangouts.index', ['user' => $user]);
     }
 
     /**
@@ -100,12 +101,22 @@ class HangoutController extends Controller
         $hangout->location_id= $request->location;
         $hangout->save();
         $hangout = Hangout::find($hangout->id);
-        // dd($request->meeting_at);
-        $hangout->users()->attach($request->user_tags);
         $hangout->save();
         Notification::send($users, new HangoutRequest($hangout));
         flash('Invites have been sent');
         return redirect()->back();
 
+    }
+
+    public function accept_hangout_invite($id)
+    {
+        $user = Auth::id();
+        $hangout = Hangout::find($id);
+        $inviter = User::find($hangout->inviter_id);
+        $hangout->attendings += 1;
+        $hangout->users()->attach($user);
+        $hangout->save();
+        flash('You accepted the invitation');
+        return redirect()->back();
     }
 }

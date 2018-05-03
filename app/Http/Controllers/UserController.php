@@ -149,6 +149,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return view('notifications.index', ['user' => $user]);
+
     }
 
     /**

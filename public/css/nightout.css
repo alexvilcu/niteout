@@ -268,6 +268,7 @@ body {
 .panel-heading {
   text-align: center;
   vertical-align: top;
+  
 }
 
 .panel-body .comment-panel {
@@ -307,6 +308,17 @@ body {
 
 .nav-pills {
   margin-top: 20px;
+}
+
+.accept-invite-btn {
+  text-align: center;
+}
+
+.notifications {
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  border-bottom: 1px solid #42DCA3;
 }
 
 @media only screen and (max-width: 768px) {
