@@ -271,8 +271,8 @@ body {
   
 }
 
-.panel-body .comment-panel {
-  border-left: 2px solid;
+.comment-body {
+  border-bottom: 2px solid;
   border-color: #42DCA3;
   padding-left: 10px;
 

@@ -130,9 +130,9 @@
 								<a href="{{ route('view.profile', ['identifier' => $comment->user->identifier]) }}">
 									<img src="{{ asset($comment->user->avatar) }}" alt="" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
 								</a>
-								<p class="comment-usert">{{ $comment->user->name }}</p>
+								<p class="comment-user">{{ $comment->user->name }}</p>
 							</div>
-						  <div class="panel-body">
+						  <div class="panel-body comment-body">
 						    {{ $comment->comment }}
 						  </div>
 						</div>
