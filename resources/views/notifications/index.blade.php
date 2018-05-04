@@ -28,7 +28,7 @@
 								<button class="btn btn-success" disabled="true">Invitation accepted</button>		
 							</div>
 							@else
-								<button class="btn btn-success" style="margin-top: 20px; type="submit">Accept invitation</button>
+								<button class="btn btn-success"  type="submit" style="margin-top: 20px;">Accept invitation</button>
 							@endif
 						</div>
 						</form>
