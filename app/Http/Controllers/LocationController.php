@@ -137,9 +137,11 @@ class LocationController extends Controller
     public function show($slug)
     {
         $current = Carbon::now();
+        $user = Auth::user();
         $rating_expiration = $current->addDays(30);
-        $rating_user = Rating::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->first(); 
         $location = Location::where('slug', $slug)->first();
+        $rating_user = Rating::where('user_id', Auth::user()->id)->where('rateable_id', $location->id)->orderBy('created_at', 'desc')->first();
+        // dd($rating_user); 
         $comments = $location->comments()->simplePaginate(4);
         $map_location = Mapper::location($location->address)->map(['zoom' => 15, 'center' => true]);
         return view('locations.single', ['location' => $location, 'comments' => $comments, 'rating_user' => $rating_user, 'rating_expiration' => $rating_expiration ]);
@@ -251,7 +253,7 @@ class LocationController extends Controller
 
     }
 
-    public function rateLocation(Request $request, $identifier)
+    public function rate_location(Request $request, $identifier)
     {
         $location = Location::where('identifier', $identifier)->first();
         // var_dump($location->name);
